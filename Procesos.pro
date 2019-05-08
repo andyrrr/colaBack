@@ -32,7 +32,8 @@ SOURCES += \
         listaproceso.cpp \
         main.cpp \
         inicio.cpp \
-        proceso.cpp
+        proceso.cpp \
+        workercompletar.cpp
 
 HEADERS += \
         carro.h \
@@ -41,7 +42,8 @@ HEADERS += \
         lineaproceso.h \
         listacarro.h \
         listaproceso.h \
-        proceso.h
+        proceso.h \
+        workercompletar.h
 
 FORMS += \
         inicio.ui

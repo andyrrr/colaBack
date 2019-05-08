@@ -2,9 +2,6 @@
 #include "ui_inicio.h"
 #include "lineaproceso.h"
 #include "carro.h"
-#include "iostream"
-
-using namespace std;
 
 Inicio::Inicio(QWidget *parent) :
     QWidget(parent),
@@ -38,8 +35,7 @@ void Inicio::Graficar(ListaProceso *colaCarro, Carro *carro, LineaProceso *linea
     Cola->agregar(carro);
     Carros1->enCola(Cola);
     linea->ejecutar(colaCarro);
-    cout<<colaCarro->toString()<<endl;
-    cout<<""<<endl;
+    linea->CarrosGeneral = Carros1;
 
 }
 
@@ -47,7 +43,7 @@ void Inicio::on_BttmBMW_clicked()
 {
     ContBMW++;
     string nombre = "BMW " + to_string(ContBMW);
-    Carro *BMW = new Carro(nombre,2 ,2 ,4 ,1 ,3 ,1 );
+    Carro *BMW = new Carro(nombre,20 ,20 ,40 ,10 ,30 ,10 );
     BMW->toString();
     Graficar(ColaBMW,BMW,LineaBMW);
 
@@ -57,7 +53,7 @@ void Inicio::on_BttmKia_clicked()
 {
     ContKia++;
     string nombre = "Kia " + to_string(ContKia);
-    Carro *Kia = new Carro(nombre,1 ,1 ,2 ,3 ,2 ,1 );
+    Carro *Kia = new Carro(nombre,10 ,10 ,20 ,30 ,20 ,10 );
     Kia->toString();
     Graficar(ColaKia,Kia,LineaKia);
 
@@ -67,7 +63,7 @@ void Inicio::on_BttmToyota_clicked()
 {
     ContToyota++;
     string nombre = "Toyota " + to_string(ContToyota);
-    Carro *Toyota = new Carro(nombre,3 ,1 ,2 ,1 ,4 ,1 );
+    Carro *Toyota = new Carro(nombre,30 ,10 ,20 ,10 ,40 ,10 );
     Toyota->toString();
     Graficar(ColaToyota,Toyota,LineaToyota);
 }
@@ -76,7 +72,7 @@ void Inicio::on_BttmNissan_clicked()
 {
     ContNissan++;
     string nombre = "Nissan " + to_string(ContNissan);
-    Carro *Nissan = new Carro(nombre,3 ,2 ,1 ,4 ,1 ,2 );
+    Carro *Nissan = new Carro(nombre,30 ,20 ,10 ,40 ,10 ,20 );
     Nissan->toString();
     Graficar(ColaNissan,Nissan,LineaNissan);
 
@@ -87,7 +83,7 @@ void Inicio::on_BttmFord_clicked()
 {
     ContFord++;
     string nombre = "Ford " + to_string(ContFord);
-    Carro *Ford = new Carro(nombre,1 ,2 ,4 ,3 ,4 ,1 );
+    Carro *Ford = new Carro(nombre,10 ,20 ,40 ,30 ,40 ,10 );
     Ford->toString();
     Graficar(ColaFord,Ford,LineaFord);
 }
@@ -96,7 +92,7 @@ void Inicio::on_BttmAudi_clicked()
 {
     ContAudi++;
     string nombre = "Audi " + to_string(ContAudi);
-    Carro *Audi = new Carro(nombre,4 ,4 ,2 ,5,3 ,5);
+    Carro *Audi = new Carro(nombre,40 ,40 ,20 ,50 ,30 ,50);
     Audi->toString();
     Graficar(ColaAudi,Audi,LineaAudi);
 }

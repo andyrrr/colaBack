@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <unistd.h>
+#include "workercompletar.h"
 
 
 using namespace std;
@@ -15,22 +16,34 @@ LineaProceso::LineaProceso(Dibujar *dibujar,QWidget *parent, string nombre):QWid
     ColaCarros = new ListaCarro();
     ColaProcesos = new ListaProceso();
     tresProcesos = new ListaProceso();
+
+    connect(pro,SIGNAL(progreso()),this,SLOT(handleresul()));
+    pro->cambio(true);
+    pro->start();
     repaint();
+
+}
+
+void LineaProceso::actuCarros(){
+    if (CarrosGeneral!=nullptr){
+        CarrosGeneral->repaint();
+    }
 
 }
 void LineaProceso::paintEvent(QPaintEvent *event){
     QPainter painter;
     painter.begin(this);
-
     Dibu->PintarAutos(&painter,ColaCarros);
     Dibu->paint(&painter, Nombre);
     Dibu->PintarCola(&painter, tresProcesos);
+
+    actuCarros();
 
 }
 
 void LineaProceso::enCola(ListaCarro *colaCarros){
     cout<<"Se une a la cola"<<endl;
-    cout<<"Tamaño de la cola: "<<colaCarros->tamano()<<endl;
+    cout<<"Tamaño de la cola de carros: "<<colaCarros->tamano()<<endl;
     ColaCarros = colaCarros;
     repaint();
 }
@@ -56,6 +69,7 @@ void LineaProceso::asignarTresProcesos(){
             srand(time(NULL));
             for(int i = 0; i < 3; i++){
                 aux = ( rand() % (0-ColaProcesos->tamano()));
+
                 int aux2 = 0;
                 while(aux2 < i){
                     if(aux != arreglo[aux2])
@@ -67,40 +81,40 @@ void LineaProceso::asignarTresProcesos(){
                 }
                 arreglo[i] = aux;
                 tresProcesos->agregar(ColaProcesos->retornar(arreglo[i]));
-                cout << arreglo[i] <<endl;
+                ///cout << arreglo[i] <<endl;
             }
-
     }
+    cout<<"Se asignan tres procesos"<<endl;
+    pro->cambio(false);
     repaint();
-    completarProceso();
 
 }
 
+void LineaProceso::handleresul(){
+    completarProceso();
+}
+
+
 void LineaProceso::completarProceso(){
-    int segundos=0;
-    while (segundos<10){
-        sleep(1);
-        segundos++;
+    segundos++;
+
+    cout<<tresProcesos->toString()<<endl;
         for (int j=0;j<tresProcesos->tamano();j++){
             tresProcesos->retornar(j)->completando(1);
             if(tresProcesos->retornar(j)->terminado){
-                cout<<"De cola-------------------"<<endl;
                 ColaProcesos->eliminar(tresProcesos->retornar(j));
-                cout<<"De tres-------------------"<<endl;
-                cout<<tresProcesos->tamano()<<"jeje"<<j<<endl;
                 tresProcesos->eliminar(tresProcesos->retornar(j));
-
+                asignarTresProcesos();
             }
         }
-        cout<<segundos<<endl;
-        repaint();
-        if(ColaCarros->tamano()==0){
-            break;
-        }
+    repaint();
+
+    if (ColaProcesos->tamano()==0){
+        pro->cambio(true);
     }
-    if (ColaProcesos->tamano()!=0){
+    if (segundos==5){
+        segundos=0;
         asignarTresProcesos();
     }
-    //cout << "Execution Time: " << time << endl;
 }
 

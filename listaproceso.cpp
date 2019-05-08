@@ -1,5 +1,4 @@
 #include "listaproceso.h"
-#include <iostream>
 using namespace std;
 NodoProceso::NodoProceso(Proceso *dato):Sig(nullptr),Dato(dato){
 
@@ -65,32 +64,22 @@ Proceso *ListaProceso::retornar(int i) {
     return actual->getDato();
 }
 void ListaProceso::eliminar(Proceso *proceso){
-    cout<<this->toString()<<endl;
     NodoProceso *actual = this->getInicio();
     if (this->getInicio()->getDato()==proceso){
-        cout<<"Elimina el nodo: "<<Inicio->getDato()->getNombre()<<endl;
         this->setInicio(Inicio->getSig());
     }else {
         while(actual->getSig()!=nullptr){
-            cout<<proceso->getNombre()<<endl;
-            cout<<"Actual: "<<actual->getDato()->getNombre()<<endl;
-            cout<<"Siguiente: "<<actual->getSig()->getDato()->getNombre()<<endl;
-            if(actual->getSig()->getDato() == proceso){
-                cout<<"Elimina el nodo: "<<actual->getSig()->getDato()->getNombre()<<endl;
+             if(actual->getSig()->getDato() == proceso){
                 if(actual->getSig()->getSig()==nullptr){
-                    cout<<"Se quiebra"<<endl;
                     actual->setSig(nullptr);
                     break;
                 }else{
                     actual->setSig(actual->getSig()->getSig());
                 }
-
-                cout<<this->toString()<<endl;
             }
             actual = actual->getSig();
         }
     }
-    cout<<"Pasa"<<endl;
 }
 
 

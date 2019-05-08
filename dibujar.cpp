@@ -5,9 +5,6 @@
 #include <QWidget>
 #include <string>
 #include "listaproceso.h"
-#include "iostream"
-
-using namespace std;
 
 Dibujar::Dibujar()
 {
